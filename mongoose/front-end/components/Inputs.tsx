@@ -28,9 +28,21 @@ const Inputs : NextPage = () => {
     function handlePhoneChange(e : ChangeEvent<HTMLInputElement>) : void { setPhone(e.target.value)}
     
     // now showing error if invalid inputs save it to database otherwies
+    //
     function handleSubmit() : void {
-       showErrorsIfExists();
+        // show errors if occurs as toast messages
+        showErrorsIfExists();
+        // sending to backend if no error occurs
+        
+        let noErrors = validateEmail() && validateUserName(name) && validateUserName(lastName) && validatePhoneNumber();
+    
+        if (noErrors) {
+            // sending to our api 
+            // now going back to backend and setup everything there
+        }
     }
+
+    // toast messages for every input field
     function showErrorsIfExists() : void {
         if (!validateEmail())
             toast.error("check your email");
@@ -46,8 +58,7 @@ const Inputs : NextPage = () => {
     function validateUserName(username : string) : boolean { return Boolean(username.match(/^[a-zA-Z0-9]+$/));}
     function validatePhoneNumber() : boolean { return Boolean(phone.match(/^\+?[1-9][0-9]{7,14}$/)); }
     
-    // adding toast functionality
-    //
+    
     return (
         <div className="w-full flex bg-gray-400 justify-center items-center flex-wrap
             gap-x-2 py-3 gap-y-3">
