@@ -25,12 +25,9 @@ const Table : NextPage = () =>  {
         data();
     }, []);
     
-    // defining the type for
-    interface userTypes {
-        name: string;
-        lastName: string;
-        email : string;
-        phone : number;
+    // defining the type for mapping item
+    interface Keyable {
+        [key : string] : any;
     }
 
     return (
@@ -64,20 +61,20 @@ const Table : NextPage = () =>  {
                     <tbody>
                         
                         {
-                            users.map((item : userTypes) => {
+                            users.map((value : Keyable, index) => {
                                 return (
-                                    <tr className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black">
+                                    <tr className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black" key={index}>
                                         <td  className="md:py-3 md:px-6 py-1 px-2  text-xs md:text-sm whitespace-nowrap ">
-                                            {item.name}
+                                            {value.name}
                                         </td>
                                         <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                            {item.lastName}
+                                            {value.lastName}
                                         </td>
                                         <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                            {item.email}
+                                            {value.email}
                                         </td>
                                         <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                            {item.phone}
+                                            {value.phone}
                                         </td>
                                         
                                         <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">

@@ -50,6 +50,8 @@ const Inputs : NextPage = () => {
                 response.data.message === "done" ? toast.success("saved to database") : toast.error("duplicate email");
                 // make the inputs empty after clicking the click
                 // now show the saved data in the database
+                location.reload(); // reloading the page when user clicks it
+                // and also sort the data make the options to do it t tommorow
             } catch(error) {
                 console.log(error);
             }
@@ -125,7 +127,8 @@ const Inputs : NextPage = () => {
             />
         </div>
   )
-} /* thats it for the frontend now
+} 
+/* thats it for the frontend now
     any thing will be added later
 */
 
