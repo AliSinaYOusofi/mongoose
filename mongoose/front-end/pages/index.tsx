@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
 import axios from 'axios';
 
+
 export default function Home({data} : {data : object[] | string}) {
 
   console.log(data)
@@ -24,18 +25,25 @@ export default function Home({data} : {data : object[] | string}) {
   );
 }
 
-export async function getStaticProps() : Promise<object>  {
+// export async function getStaticProps()  {
   
-  let usersArray : string;
-  try {
-    usersArray = await axios.get("http://localhost:3001/api/data");
-  } catch(error) {
+  
+//   try {
+//     const {message} = await axios.get("http://localhost:3001/api/data");
+//     return {
+//       props: {
+//         data: message
+//       },
+//       revalidate: 10
+//     }
+//   } catch(error) {
+//     return {
+//       props: {
+//         data: stringify(error)
+//       },
+//       revalidate: 10
+//     }
+//   }
 
-  }
-
-  return {
-    props: {
-      data: usersArray?.data.message ?? ""
-    }
-  }
-}
+  
+// }

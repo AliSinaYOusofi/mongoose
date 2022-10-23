@@ -20,6 +20,19 @@ webApp.use(cors({
  
 webApp.use("/", router);
 
+webApp.get("/api/data", async (req, res) => {
+    
+    try {
+        const users = await userSchema.find({}); // get all data from databse;
+        console.log(users);
+        console.log("got call")
+        res.send(users).sendStatus(200);
+    }catch(error) {
+
+    }
+    
+})
+
 webApp.post("/api/register", async (req, res) => {
     const {name, lastName, email, phone} = req.body; // got the data just insert it
     // and now saving data to databse: everything else is set
@@ -38,9 +51,6 @@ webApp.post("/api/register", async (req, res) => {
     flag ? res.send({message: "done"}) : res.send({message: "failed"});
 });
 
-webApp.get("/api/data", async (req, res) => {
-    res.send({message: "why not working"});
-    
-})
+
 
 webApp.listen(port, () => console.log("started "));
