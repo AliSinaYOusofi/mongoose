@@ -28,8 +28,8 @@ const Inputs : NextPage = () => {
     function handlePhoneChange(e : ChangeEvent<HTMLInputElement>) : void { setPhone(e.target.value)}
     
     // now showing error if invalid inputs save it to database otherwies
-    //
-    function handleSubmit() : void {
+    // return a void Promise for async functions typescript
+    async function handleSubmit() : Promise<void> {
         // show errors if occurs as toast messages
         showErrorsIfExists();
         // sending to backend if no error occurs
@@ -40,12 +40,19 @@ const Inputs : NextPage = () => {
             // sending to our api 
             // now going back to backend and setup everything there
             // send details to server
-            axios.post("http://localhost:3001/api/register", {
-                name,
-                lastName,
-                phone,
-                email
-            });
+            try {
+                const response = await axios.post("http://localhost:3001/api/register", {
+                    name,
+                    lastName,
+                    phone,
+                    email
+                });
+                response.data.message === "done" ? toast.success("saved to database") : toast.error("duplicate email");
+                // make the inputs empty after clicking the click
+                // now show the saved data in the database
+            } catch(error) {
+                console.log(error);
+            }
         }
     }
 
