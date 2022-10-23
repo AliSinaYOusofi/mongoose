@@ -38,4 +38,9 @@ webApp.post("/api/register", async (req, res) => {
     flag ? res.send({message: "done"}) : res.send({message: "failed"});
 });
 
+webApp.get("/api/data", async (req, res) => {
+    res.send({message: "why not working"});
+    
+})
+
 webApp.listen(port, () => console.log("started "));

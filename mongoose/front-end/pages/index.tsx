@@ -3,8 +3,12 @@ import Script from "next/script";
 import Inputs from "../components/Inputs";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
+import axios from 'axios';
 
-export default function Home() {
+export default function Home({data} : {data : object[] | string}) {
+
+  console.log(data)
+  
   return (
     <>
       <Head>
@@ -15,6 +19,23 @@ export default function Home() {
       <Inputs />
       <SearchBar />
       <Table />
+      
     </>
   );
+}
+
+export async function getStaticProps() : Promise<object>  {
+  
+  let usersArray : string;
+  try {
+    usersArray = await axios.get("http://localhost:3001/api/data");
+  } catch(error) {
+
+  }
+
+  return {
+    props: {
+      data: usersArray?.data.message ?? ""
+    }
+  }
 }
