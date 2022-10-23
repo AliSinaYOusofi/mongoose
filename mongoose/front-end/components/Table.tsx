@@ -1,7 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next';
+import axios from 'axios';
 
 const Table : NextPage = () =>  {
+  
   return (
     <div className="md:w-[90%] ml-auto mr-auto mt-5 lg:p-0 px-2 rounded-md ">
         
@@ -60,5 +62,6 @@ const Table : NextPage = () =>  {
     </div>
   )
 }
+
 
 export default Table;
