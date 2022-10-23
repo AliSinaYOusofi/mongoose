@@ -4,7 +4,7 @@ import {CgNametag} from 'react-icons/cg';
 import {AiOutlinePhone, AiOutlineMail} from 'react-icons/ai';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Toast } from 'react-toastify/dist/components';
+import axios from 'axios';
 
 const Inputs : NextPage = () => {
     
@@ -39,6 +39,13 @@ const Inputs : NextPage = () => {
         if (noErrors) {
             // sending to our api 
             // now going back to backend and setup everything there
+            // send details to server
+            axios.post("http://localhost:3001/api/register", {
+                name,
+                lastName,
+                phone,
+                email
+            });
         }
     }
 
