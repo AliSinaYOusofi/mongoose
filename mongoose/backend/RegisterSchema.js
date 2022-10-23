@@ -1,34 +1,39 @@
 const mongoose = require("mongoose");
+const { stringify } = require("querystring");
 
 // defining our database schema
 const userSchema = new mongoose.Schema({
     /* next: insert validators */
 
     name: {
+        type: String,
         required: true,
         minLength: 1,
         maxLength: 30,
         lowercase: true,
     },
     lastName: {
+        type : String,
         required: true,
         minLength: 1,
         maxLength: 30,
         lowercase: true,
     },
     email: {
+        type: String,
         required: true,
         minLength: 1,
         maxLength: 30,
         lowercase: true,
         validate: {
             validator : value => String(value).length > 0,
-            message: props => `${this.email} should be greater than zero`
+            message: props => `${props}} should be greater than zero`
         },
         immutable: true,
         unique: true
     },
     phone: {
+        type: Number,
         required: true,
     }
 });
@@ -84,4 +89,6 @@ userSchema.post("save", function(doc, next) {
     next(); // go to the next middlware
 });
 
+// export the model
+module.exports = mongoose.model("devs", userSchema);
 // thats a wrap for this script
