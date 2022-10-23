@@ -4,31 +4,35 @@ import axios from 'axios';
 
 const Table : NextPage = () =>  {
 
-    const [users, setUsers] = React.useState([]);
+    const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
     
     // our result model
     
-    // defining the type of data we will fetch from the
+    // defining the type of data we will fetch from the the api
     interface Data {
-        user: Array<object>;
+        user?: Array<object>;
         data: Array<object>;
-        users: Array<object>
+        users?: Array<object>;
     }
+
     React.useEffect( () => {
         const data = async () => {
             try {
                 const response : Data = await axios.get("http://localhost:3001/api/data");
-                console.log(response.data);
-                setUsers(response.data.users);
-            }catch(error) {
-                console.log(error);
-            }
+                setUsers(response.data);
+            } catch(error) { console.log(error);}
         } 
         data();
-    }, [])
+    }, []);
     
-    console.log(users, "users");  
-    
+    // defining the type for
+    interface userTypes {
+        name: string;
+        lastName: string;
+        email : string;
+        phone : number;
+    }
+
     return (
         <div className="md:w-[90%] ml-auto mr-auto mt-5 lg:p-0 px-2 rounded-md ">
             
@@ -59,27 +63,33 @@ const Table : NextPage = () =>  {
                     </thead>
                     <tbody>
                         
-                        <tr className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black">
-                            <td  className="md:py-3 md:px-6 py-1 px-2  text-xs md:text-sm whitespace-nowrap ">
-                                Magic Mouse 2
-                            </td>
-                            <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                Black
-                            </td>
-                            <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                Accessories
-                            </td>
-                            <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                $99
-                            </td>
-                            
-                            <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                <button type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
-                            </td>
-                            <td className="md:py-3 md:px-6 py-1 px-2">
-                                <button type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
-                            </td>
-                        </tr>
+                        {
+                            users.map((item : userTypes) => {
+                                return (
+                                    <tr className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black">
+                                        <td  className="md:py-3 md:px-6 py-1 px-2  text-xs md:text-sm whitespace-nowrap ">
+                                            {item.name}
+                                        </td>
+                                        <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
+                                            {item.lastName}
+                                        </td>
+                                        <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
+                                            {item.email}
+                                        </td>
+                                        <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
+                                            {item.phone}
+                                        </td>
+                                        
+                                        <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
+                                            <button type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
+                                        </td>
+                                        <td className="md:py-3 md:px-6 py-1 px-2">
+                                            <button type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
