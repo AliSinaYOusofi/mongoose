@@ -73,7 +73,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
     // ascending funcction 
     
     return (
-        <div className="md:w-[90%] ml-auto mr-auto mt-5 lg:p-0 px-2 rounded-md ">
+        <div className="md:w-[90%]  ml-auto mr-auto mt-14 lg:p-0 px-2 rounded-md ">
             
             <div className="overflow-x-auto relative shadow-md rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
