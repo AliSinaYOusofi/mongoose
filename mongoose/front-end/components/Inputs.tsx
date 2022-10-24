@@ -133,6 +133,7 @@ const Inputs : NextPage = () => {
                 />
             </div>
             <SearchBar />
+            
             <div className="lg:ml-16 ml-3 mt-5 flex gap-x-2">
                 <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
                 <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
