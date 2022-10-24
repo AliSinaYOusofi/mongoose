@@ -22,8 +22,8 @@ export default function Eyeballs() {
         
         const eyes = document.querySelectorAll(".eyes");
         eyes.forEach(eye => {
-          console.log(eye, 'eyyyyyyyyyyyyyyyyyyyyyyyye')
-          eye.style.transform = `rotate(${angleDeg + 90}deg);`
+          eye.style.transform = `rotate(${angleDeg + 90}deg);`;
+          
         })
       });
     }
@@ -40,21 +40,24 @@ export default function Eyeballs() {
   }
   return (
     <div className="relative">
-      <div className="absolute  left-20 mt-14">
+      <div className="absolute   left-20 mt-14">
         <Image
             src={image}
             alt=""
             height={70}
             width={60}
             className=""
-            id="rabbit"
+            id={"rabbit"}
           />
+          <div className="eyes absolute w-[0.6rem] rounded-full h-[0.3rem] bg-black top-[1rem] z-10 left-[3rem]"></div>
+          <div className="eyes absolute w-[0.3rem] rounded-full h-[0.3rem] bg-[black] top-[5rem] left-[4.5rem]"></div>
+    
+
       </div>
+      
       <div className="absolute w-4 rounded-full h-4 bg-[white] top-[4.5rem] left-[6.2rem]"></div>
       <div className="absolute w-4 rounded-full h-4 bg-white top-[4.5rem] left-[7.7rem]"></div>
-        
-      <div className="eyes absolute w-[0.7rem] rounded-full h-[0.7rem] bg-black top-[5rem] left-[8rem]"></div>
-      <div className="eyes absolute w-[0.3rem] rounded-full h-[0.3rem] bg-[black] top-[5rem] left-[6.5rem]"></div>
+    
     </div>
   )
 }
