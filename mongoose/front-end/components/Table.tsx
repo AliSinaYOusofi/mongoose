@@ -2,10 +2,18 @@ import React from 'react'
 import type { NextPage } from 'next';
 import axios from 'axios';
 
-const Table : NextPage = () =>  {
+// type for our props
+// something new is here
+interface Props {
+    click : boolean;
+}
+
+const Table : NextPage<Props> = (props) =>  { // nice way of typescript being typescript
 
     const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
+    console.log(props.click); // that is something
     
+    // in typescript that is a new of getting props
     // our result model
     
     // defining the type of data we will fetch from the the api
@@ -23,7 +31,7 @@ const Table : NextPage = () =>  {
             } catch(error) { console.log(error);}
         } 
         data();
-    }, []);
+    }, [props.click]);
     
     // defining the type for mapping item
     interface Keyable {
