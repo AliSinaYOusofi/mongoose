@@ -12,10 +12,28 @@ interface Props {
 const Table : NextPage<Props> = (props) =>  { // nice way of typescript being typescript
 
     const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
+    // useMemo is now working perfectly fine
+    const sortedValue = React.useMemo( () => {
+        function sortData(data : Array<object>) : Array<object> {
+            let sortedProduct: Array<object> = 
+                props.color 
+                ? 
+                    data.sort( 
+                    (user1 : Keyable, user2 : Keyable) : number => 
+                        (user1.name < user2.name) ? 1 : (user1.name > user2.name ? -1 : 0)
+                    ) 
+                : 
+                    data.sort( 
+                        (user1 : Keyable, user2 : Keyable) : number => 
+                            (user1.name > user2.name) ? 1 : (user1.name < user2.name ? -1 : 0)
+                    )
+            return sortedProduct;
+        }
+        sortData(users);
+
+    }, [users, props.color]);
     
-    const sortedValue = React.useMemo( () => sortData(users), [users]);
-    
-    console.log(sortData);
+   
     // in typescript that is a new of getting props
     // our result model
     
@@ -38,7 +56,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
             try {
                 const response : Data = await axios.get("http://localhost:3001/api/data");
                 // before setting make sure of ascending or desending
-                // setUsers(response.data);
+                setUsers(response.data);
                 // make ascending order
                 // or descending
                 
@@ -116,19 +134,6 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
             </div>
 
         </div>
-  );
-
-  function sortData(data : Array<object>) : Array<object> {
-    let sortedProduct: Array<object> = data.sort( 
-        (user1 : Keyable, user2 : Keyable) : number => 
-            (user1.name > user2.name) ? 1 : (user1.name < user2.name ? -1 : 0)
-    )
-    console.log(sortedProduct)
-    return sortedProduct;
+  ); 
 }
-}
-
-
-
-
 export default Table;
