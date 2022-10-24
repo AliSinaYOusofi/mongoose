@@ -24,11 +24,20 @@ webApp.get("/api/data", async (req, res) => {
     
     try {
         const users = await userSchema.find({}); // get all data from databse;
-       
         res.send(users).sendStatus(200);
     }catch(error) {
 
     }
+    
+});
+
+webApp.get("/api/search", async(req, res) => {
+    // return search results based on it
+    const {searchThis} = req.query
+    const result = await userSchema.find({}); // getting all data and then filtering out the results
+    // if the name includes a result then it is a match
+    const searchFilteredResults = (getSimilarNames(result, searchThis));
+    res.send({results : searchFilteredResults})
     
 })
 
@@ -50,6 +59,9 @@ webApp.post("/api/register", async (req, res) => {
     flag ? res.send({message: "done"}) : res.send({message: "failed"});
 });
 
-
+function getSimilarNames(arrayOfObjects, search) {
+    // converting it to lowercase first and the search qeury as well
+    return arrayOfObjects.filter( (item) => item.name.toLowerCase().includes(search.toLowerCase()))
+}
 
 webApp.listen(port, () => console.log("started "));
