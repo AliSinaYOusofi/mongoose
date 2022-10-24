@@ -16,6 +16,8 @@ const Inputs : NextPage = () => {
     const [lastName, setLastName] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [click, setClick] = React.useState(false); // for useEffect() in Tables
+    const [buttonColor, setButtonColor] = React.useState(false); // controlling colors
+    
 
     // setting whether if inputs are touched based on touch show the the error
     const [emailTouched, setEmailTouched] = React.useState(false);
@@ -131,7 +133,11 @@ const Inputs : NextPage = () => {
                 />
             </div>
             <SearchBar />
-            <Table click={click}/>
+            <div className="lg:ml-16 ml-3 mt-5 flex gap-x-2">
+                <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
+                <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
+            </div>
+            <Table click={click} color={buttonColor}/>
         </>
   )
 } 
