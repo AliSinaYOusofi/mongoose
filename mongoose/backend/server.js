@@ -24,8 +24,7 @@ webApp.get("/api/data", async (req, res) => {
     
     try {
         const users = await userSchema.find({}); // get all data from databse;
-        console.log(users);
-        console.log("got call")
+       
         res.send(users).sendStatus(200);
     }catch(error) {
 

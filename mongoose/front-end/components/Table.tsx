@@ -6,13 +6,16 @@ import axios from 'axios';
 // something new is here
 interface Props {
     click : boolean;
+    color? : boolean; // be optional for now: false is descending true is ascending
 }
 
 const Table : NextPage<Props> = (props) =>  { // nice way of typescript being typescript
 
     const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
-    console.log(props.click); // that is something
     
+    const sortedValue = React.useMemo( () => sortData(users), [users]);
+    
+    console.log(sortData);
     // in typescript that is a new of getting props
     // our result model
     
@@ -23,21 +26,34 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
         users?: Array<object>;
     }
 
+    /*
+        making our sorting algorithms:
+        if buttonColor is true ascending false descinding
+        run useEffect() on every change of clicks for now
+
+        should i add : modified, latest => idk 
+    */
     React.useEffect( () => {
-        const data = async () => {
+        const Data = async () => {
             try {
                 const response : Data = await axios.get("http://localhost:3001/api/data");
-                setUsers(response.data);
+                // before setting make sure of ascending or desending
+                // setUsers(response.data);
+                // make ascending order
+                // or descending
+                
             } catch(error) { console.log(error);}
         } 
-        data();
-    }, [props.click]);
+        Data();
+    }, [props.click, props.color]);
     
     // defining the type for mapping item
     interface Keyable {
         [key : string] : any;
     }
 
+    // ascending funcction 
+    
     return (
         <div className="md:w-[90%] ml-auto mr-auto mt-5 lg:p-0 px-2 rounded-md ">
             
@@ -100,8 +116,19 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
             </div>
 
         </div>
-  )
+  );
+
+  function sortData(data : Array<object>) : Array<object> {
+    let sortedProduct: Array<object> = data.sort( 
+        (user1 : Keyable, user2 : Keyable) : number => 
+            (user1.name > user2.name) ? 1 : (user1.name < user2.name ? -1 : 0)
+    )
+    console.log(sortedProduct)
+    return sortedProduct;
 }
+}
+
+
 
 
 export default Table;
