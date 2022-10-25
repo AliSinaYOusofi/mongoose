@@ -98,15 +98,15 @@ const Inputs : NextPage<Props> = (props) => {
     
     return (
         <>
-            <div id={`${props.buttonTitle}`} className="w-full flex bg-gray-400 justify-center items-center flex-wrap
-                gap-x-2 py-3 gap-y-3">
+            <div id={`${props.buttonTitle}`} className="w-[80%] rounded-md bg-[#ece4e5] md:mt-5 ml-auto mr-auto py-8 flex  justify-center items-center flex-wrap
+                gap-x-2  gap-y-3 text-black">
                 
                 <div className="relative">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <AiOutlineMail className="text-gray-400"/>
                     </div>
                     <input onBlur={() => setEmailTouched(!emailTouched)} 
-                        style={{border: emailTouched ? (!validateEmail() ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleEmailChange} type="text" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" />
+                        style={{border: emailTouched ? (!validateEmail() ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleEmailChange} type="text" id="input-group-1" className="bg-gray-300 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-50 block w-full pl-10 p-2.5  dark:placeholder-gray-400" placeholder="email" />
                     
                 </div>
                 
@@ -115,7 +115,7 @@ const Inputs : NextPage<Props> = (props) => {
                         <CgNametag className="text-gray-400"/>
                     </div>
                     <input onBlur={() => setNameTouched(!nameTouhced)} 
-                        style={{border: nameTouhced ? (!validateUserName(name) ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleNameChange} type="text" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="first name" />
+                        style={{border: nameTouhced ? (!validateUserName(name) ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleNameChange} type="text" id="input-group-1" className="bg-gray-300 border border-gray-300  text-sm rounded-lg focus:ring-blue-100 block w-full pl-10 p-2.5  text-black dark:placeholder-gray-400 " placeholder="first name" />
                 </div>
                 
                 <div id={`${props.buttonTitle}`} className="relative">
@@ -123,7 +123,7 @@ const Inputs : NextPage<Props> = (props) => {
                         <CgNametag className="text-gray-400"/>
                     </div>
                     <input onBlur={() => setLastNameTouchd(!lastNameTouched)} 
-                    style={{border: lastNameTouched ? (!validateUserName(lastName) ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleLastNameChange} type="text" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="last name" />
+                    style={{border: lastNameTouched ? (!validateUserName(lastName) ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleLastNameChange} type="text" id="input-group-1" className="bg-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-50 block w-full pl-10 p-2.5   dark:placeholder-gray-400 " placeholder="last name" />
                 </div>
                 
                 <div className="relative">
@@ -131,9 +131,9 @@ const Inputs : NextPage<Props> = (props) => {
                         <AiOutlinePhone className="text-gray-400"/>
                     </div>
                     <input onBlur={() => setPhoneTouched(!phoneTouched)} 
-                        style={{border: phoneTouched ? (!validatePhoneNumber() ? "1px solid red" : "1px solid green")  : "null"}} onChange={handlePhoneChange} type="tel"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="phone" />
+                        style={{border: phoneTouched ? (!validatePhoneNumber() ? "0.1px solid red" : "0.1px solid green")  : "null"}} onChange={handlePhoneChange} type="tel"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="input-group-1" className="bg-gray-300 outline-none border-none focus:outline-none focus:border-none focus:ring-blue-50  text-sm rounded-lg  block w-full pl-10 p-2.5    dark:placeholder-gray-400   " placeholder="phone" />
                 </div>
-                <button type="submit" onClick={handleSubmit} className="text-white bg-green-700 py-1 text-center px-4 md:py-2 md:px-5 md:text-[1rem] text-sm  rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1 w-3/2 md:w-fit">{ ! props.buttonTitle ? "Create" : "Update"}</button>
+                <button type="submit" onClick={handleSubmit} className="text-white bg-green-700 py-1 text-center px-4 md:py-2 md:px-5 md:text-[1rem] text-sm  rounded-md border-none outline-none transition-all duration-300 hover:-translate-y-1 w-3/2 md:w-fit">{ ! props.buttonTitle ? "Create" : "Update"}</button>
                 <ToastContainer 
                     position="top-left"
                     autoClose={2000}
@@ -157,8 +157,8 @@ const Inputs : NextPage<Props> = (props) => {
             {
                 ! props.buttonTitle ?
                     <div className="lg:ml-16 ml-3 mt-5 flex gap-x-2">
-                        <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
-                        <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
+                        <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "#3333ff" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
+                        <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "#3333ff" : "gray"}}>Descending</button>
                     </div>
             : ""
             }
