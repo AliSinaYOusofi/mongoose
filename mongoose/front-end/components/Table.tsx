@@ -2,6 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Inputs from './Inputs';
 
 // type for our props
 // something new is here
@@ -14,6 +15,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
 
     const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
     const [update, setUpdate] =  React.useState(false);
+    const [updateVisible, setUpdateVisible] = React.useState(false);
     // useMemo is now working perfectly fine
     const sortedValue = React.useMemo( () => {
         
@@ -92,7 +94,16 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
         setUpdate(!update);
     }
     // now to tackle the updation of users
-    // it should be done tonigh
+    // it should be done tonight how to handle the update button
+    // make a another comp then save it
+    // or use existing comp and 
+    const handleUpdate = (event : React.MouseEvent<HTMLButtonElement>) : void => {
+        const id : string = (event.target as Element).id; // current id of
+        setUpdateVisible(!updateVisible); // if true show the input forms
+        document.getElementById("inputs")?.scrollIntoView({behavior: "smooth"});
+        document.getElementById("true")?.scrollIntoView({behavior: "smooth"});
+        
+    }
     return (
         <div className="md:w-[90%]  ml-auto mr-auto mt-14 lg:p-0 px-2 rounded-md ">
             
@@ -141,7 +152,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
                                         </td>
                                         
                                         <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                            <button type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
+                                            <button onClick={handleUpdate} id={value.name + " " + value.email} type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
                                         </td>
                                         <td className="md:py-3 md:px-6 py-1 px-2">
                                             <button onClick={handleDelete} id={value.name + " " + value.email} type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
@@ -153,7 +164,11 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
                     </tbody>
                 </table>
             </div>
-
+            <div id="inputs">
+                {
+                    updateVisible ? <Inputs  buttonTitle={updateVisible}/> : ""
+                }
+            </div>
         </div>
   ); 
 }

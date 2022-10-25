@@ -9,7 +9,12 @@ import Table from './Table';
 import SearchBar from './SearchBar';
 import Eyeballs from './Eyeballs';
 
-const Inputs : NextPage = () => {
+// what if i reuse this comp for updation
+
+interface Props {
+    buttonTitle : boolean;
+}
+const Inputs : NextPage<Props> = (props) => {
     
     // for controlled inputs
     const [email, setEmail] = React.useState("");
@@ -42,7 +47,7 @@ const Inputs : NextPage = () => {
         
         let noErrors = validateEmail() && validateUserName(name) && validateUserName(lastName) && validatePhoneNumber();
     
-        if (noErrors) {
+        if (noErrors && ! props.buttonTitle) {
             // sending to our api 
             // now going back to backend and setup everything there
             // send details to server
@@ -61,6 +66,10 @@ const Inputs : NextPage = () => {
             } catch(error) {
                 console.log(error);
             }
+        }
+        // if buttonTitle is  true then it means that the updateFunctionality should work instead
+        if (props.buttonTitle) {
+            console.log("update the fucking user");
         }
     }
 
@@ -83,7 +92,7 @@ const Inputs : NextPage = () => {
     
     return (
         <>
-            <div className="w-full flex bg-gray-400 justify-center items-center flex-wrap
+            <div id={`${props.buttonTitle}`} className="w-full flex bg-gray-400 justify-center items-center flex-wrap
                 gap-x-2 py-3 gap-y-3">
                 
                 <div className="relative">
@@ -103,7 +112,7 @@ const Inputs : NextPage = () => {
                         style={{border: nameTouhced ? (!validateUserName(name) ? "1px solid red" : "1px solid green")  : "null"}} onChange={handleNameChange} type="text" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="first name" />
                 </div>
                 
-                <div className="relative">
+                <div id={`${props.buttonTitle}`} className="relative">
                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <CgNametag className="text-gray-400"/>
                     </div>
@@ -118,7 +127,7 @@ const Inputs : NextPage = () => {
                     <input onBlur={() => setPhoneTouched(!phoneTouched)} 
                         style={{border: phoneTouched ? (!validatePhoneNumber() ? "1px solid red" : "1px solid green")  : "null"}} onChange={handlePhoneChange} type="tel"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" id="input-group-1" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="phone" />
                 </div>
-                <button type="submit" onClick={handleSubmit} className="text-white bg-green-700 py-1 text-center px-4 md:py-2 md:px-5 md:text-[1rem] text-sm  rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1 w-3/2 md:w-fit">Create</button>
+                <button type="submit" onClick={handleSubmit} className="text-white bg-green-700 py-1 text-center px-4 md:py-2 md:px-5 md:text-[1rem] text-sm  rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1 w-3/2 md:w-fit">{ ! props.buttonTitle ? "Create" : "Update"}</button>
                 <ToastContainer 
                     position="top-left"
                     autoClose={2000}
@@ -130,17 +139,26 @@ const Inputs : NextPage = () => {
                     draggable
                     pauseOnHover
                     theme="light"
-                    
                 />
             </div>
-            <SearchBar />
+            {/* making it reusable. 
+            it beame alot messy than i thought. everything comes with a price
+            move to the inputs when from update utton using id of inputs.
+            thats good solution.
+            */}
+            { ! props.buttonTitle ? <SearchBar /> : ""}
             
-            <div className="lg:ml-16 ml-3 mt-5 flex gap-x-2">
-                <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
-                <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
-            </div>
-            <Eyeballs />
-            <Table click={click} color={buttonColor}/>
+            {
+                ! props.buttonTitle ?
+                    <div className="lg:ml-16 ml-3 mt-5 flex gap-x-2">
+                        <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
+                        <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
+                    </div>
+            : ""
+            }
+            { ! props.buttonTitle ? <Eyeballs /> : ""}
+            
+            { ! props.buttonTitle ? <Table click={click} color={buttonColor}/> : ""}
         </>
   )
 } 
