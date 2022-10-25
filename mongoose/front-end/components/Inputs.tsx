@@ -13,6 +13,7 @@ import Eyeballs from './Eyeballs';
 
 interface Props {
     buttonTitle : boolean;
+    id? : string;
 }
 const Inputs : NextPage<Props> = (props) => {
     
@@ -68,8 +69,13 @@ const Inputs : NextPage<Props> = (props) => {
             }
         }
         // if buttonTitle is  true then it means that the updateFunctionality should work instead
-        if (props.buttonTitle) {
-            console.log("update the fucking user");
+        if (props.buttonTitle && noErrors) {
+            // just make no errors and then send it to backend
+            // got everythin
+            try {
+                const response = await axios.post("http://localhost:3001/api/update", {id: props.id, insert: name + " " + lastName + " " + email + " " + phone});
+                response.data.message === "done" ? toast.success("user updated") : toast.error("failed to update, check you email again");
+            }catch(error) { console.log(error)}
         }
     }
 
