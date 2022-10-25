@@ -25,9 +25,11 @@ const SearchBar : NextPage = () => {
                     <input onChange={handleSearchChange} type="search" id="default-search" className="block p-4 pl-10 w-full text-sm border-none outline-none rounded-md text-gray-900 bg-gray-300 " placeholder="Search Web Dev, DevRels, and Programmers" required />
                     <button onClick={() => setSearchClick(prev => !prev)} type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Search</button>
                 </div>
+                
             </form>
-            <Eyeballs />
+            
             {search.length > 0 || searchClick ?<SearchTables text={search}/> : ""}
+            
             {/* good to go */}
         </>
     );
