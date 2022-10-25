@@ -4,6 +4,9 @@ import image from "../Assets/rabbit.png";
 
 export default function Eyeballs() {
 
+
+  // document in is not available on loading of page
+  // but it becoms available when after hydration
   React.useEffect( () => {
     const mouseMover = (): void => {
       
@@ -29,7 +32,6 @@ export default function Eyeballs() {
     }
     mouseMover();
   })
-  
 
   function getAngle(cx : number, cy : number, ex: number, ey : number) : number {
     const dy = ey - cy;
@@ -51,13 +53,9 @@ export default function Eyeballs() {
           />
           <div className=" eyes absolute w-[0.3rem] rounded-full h-[0.4rem] bg-black top-[1.3rem] z-10 left-[3rem]"></div>
           <div className="eyes absolute w-[0.3rem] rounded-full h-[0.4rem] bg-[black] top-[1.5rem] z-10 left-[1.5rem] "></div>
-    
-
       </div>
-      
       <div className="absolute w-4  z-[1] rounded-full h-4 bg-[white] top-[1rem] left-[6.2rem]"></div>
       <div className="absolute w-4 rounded-full h-4 bg-white top-[1rem] left-[7.7rem] z-[1]"></div>
-    
     </div>
   )
 }

@@ -38,7 +38,6 @@ webApp.get("/api/search", async(req, res) => {
     // if the name includes a result then it is a match
     const searchFilteredResults = (getSimilarNames(result, searchThis));
     res.send({results : searchFilteredResults})
-    
 })
 
 webApp.post("/api/register", async (req, res) => {
@@ -59,6 +58,19 @@ webApp.post("/api/register", async (req, res) => {
     flag ? res.send({message: "done"}) : res.send({message: "failed"});
 });
 
+webApp.get("/api/delete", async (req, res) => {
+    const {deleteThis} = req.query;
+    let flag = true;
+    // now split and take both
+    const [name, email] = deleteThis.split(" "); // got both ift;
+    const findResult = await userSchema.find({name: name, email: email});
+    if (findResult) {
+        // based on acknowledged deelte and deleteCount set it To something
+        const deleteResult = await userSchema.deleteOne({name: name, email: email});
+        flag = deleteResult.acknowledged && deleteResult.deletedCount;
+    }
+    flag ? res.send({message: "done"}) : res.send({message: "failed"});
+})
 function getSimilarNames(arrayOfObjects, search) {
     // converting it to lowercase first and the search qeury as well
     return arrayOfObjects.filter( (item) => item.name.toLowerCase().includes(search.toLowerCase()))

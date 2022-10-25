@@ -1,6 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // type for our props
 // something new is here
@@ -12,8 +13,10 @@ interface Props {
 const Table : NextPage<Props> = (props) =>  { // nice way of typescript being typescript
 
     const [users, setUsers] = React.useState(Array<object>); // type shoudl be Array<Gen>
+    const [update, setUpdate] =  React.useState(false);
     // useMemo is now working perfectly fine
     const sortedValue = React.useMemo( () => {
+        
         function sortData(data : Array<object>) : Array<object> {
             let sortedProduct: Array<object> = 
                 props.color 
@@ -63,15 +66,33 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
             } catch(error) { console.log(error);}
         } 
         Data();
-    }, [props.click, props.color]);
+    }, [props.click, props.color, update]);
     
     // defining the type for mapping item
     interface Keyable {
         [key : string] : any;
     }
 
-    // ascending funcction 
-    
+    // now onot deleteing and updating data and then it is done
+    // on the click of it search it then send it then delete then respond something(toast);
+    // React.MouseEvent<HTMLButtonElement> Nice Generic
+    const handleDelete = async (event : React.MouseEvent<HTMLButtonElement>) : Promise<void> => {
+        event.preventDefault();
+        // EventTarget does not inherit from Element so typecasting it will work
+        const id : string = (event.target as Element).id; // just send to backend
+        // and check for both name equal name and email equal email otherwise error
+        try {
+            const response = await axios.get(`http://localhost:3001/api/delete?deleteThis=${id}`);
+            response.data.message === "done" ? toast.success("user deleted") : toast.error("failed to delete");
+            // how to re-run our useEffect() when user deletes or not
+        }catch(error) { console.log(error);}
+        // now that updates it righ away
+        // i think it is good to go
+        // deletion of users done
+        setUpdate(!update);
+    }
+    // now to tackle the updation of users
+    // it should be done tonigh
     return (
         <div className="md:w-[90%]  ml-auto mr-auto mt-14 lg:p-0 px-2 rounded-md ">
             
@@ -101,11 +122,11 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        {/* setting the key to name and email of user */}
                         {
                             users.map((value : Keyable, index) => {
                                 return (
-                                    <tr className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black" key={index}>
+                                    <tr id={value.name + " " + value.email} className=" bg-gray-300 md:py-3 md:px-6 py-1 px-2 text-black" key={value.name + " " + value.email}>
                                         <td  className="md:py-3 md:px-6 py-1 px-2  text-xs md:text-sm whitespace-nowrap ">
                                             {value.name}
                                         </td>
@@ -123,7 +144,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
                                             <button type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
                                         </td>
                                         <td className="md:py-3 md:px-6 py-1 px-2">
-                                            <button type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
+                                            <button onClick={handleDelete} id={value.name + " " + value.email} type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
                                         </td>
                                     </tr>
                                 )
