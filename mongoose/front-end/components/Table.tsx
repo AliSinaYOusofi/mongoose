@@ -69,7 +69,7 @@ const Table : NextPage<Props> = (props) =>  { // nice way of typescript being ty
             } catch(error) { console.log(error);}
         } 
         Data();
-    }, [props.click, props.color, update]);
+    }, [props.click, props.color, update, updateVisible]);
     
     // defining the type for mapping item
     interface Keyable {

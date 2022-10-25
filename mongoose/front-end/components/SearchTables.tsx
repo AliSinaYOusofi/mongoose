@@ -53,12 +53,7 @@ const SearchTables : NextPage<Props> = (searchText) => {
                             <th scope="col" className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
                                 Phone
                             </th>
-                            <th scope="col" className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                Update
-                            </th>
-                            <th scope="col" className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                Delete
-                            </th>
+                            
                             
                         </tr>
                     </thead>
@@ -80,12 +75,7 @@ const SearchTables : NextPage<Props> = (searchText) => {
                                             {value.phone}
                                         </td>
                                         
-                                        <td className="md:py-3 md:px-6 py-1 px-2 text-xs md:text-sm">
-                                            <button type="submit" className="text-white bg-blue-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Update</button>
-                                        </td>
-                                        <td className="md:py-3 md:px-6 py-1 px-2">
-                                            <button type="submit" className="text-white bg-red-700 p-1 px-3 rounded-sm border-none outline-none transition-all duration-300 hover:-translate-y-1">Delete</button>
-                                        </td>
+                                        
                                     </tr>
                                 )
                             })
