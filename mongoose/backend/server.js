@@ -70,6 +70,24 @@ webApp.get("/api/delete", async (req, res) => {
         flag = deleteResult.acknowledged && deleteResult.deletedCount;
     }
     flag ? res.send({message: "done"}) : res.send({message: "failed"});
+});
+
+// another one for updating the user
+// first find if user exists else move respond with error else success
+
+webApp.post("/api/update", async (req, res) => {
+    
+    const {id, insert} = req.body; // got the id of user
+    const prevEmail = id.split(" ")[1]
+    const [name, lastName, email, phone] = insert.split(" ");
+
+    try {
+        // updating based ont he email
+        // a mistake: updating the data with the previous data whic not updating
+        const existResults = await userSchema.updateOne({email: prevEmail}, { $set: { name: name, email: email, phone: phone, lastName: lastName} }); // and now it's officially done fuck yeah
+        existResults.matchedCount ? res.send({message: "done"}) : res.send({message: "failed"});
+         // an object id
+    }catch(error) { console.log(error);}
 })
 function getSimilarNames(arrayOfObjects, search) {
     // converting it to lowercase first and the search qeury as well
