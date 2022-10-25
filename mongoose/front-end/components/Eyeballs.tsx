@@ -4,7 +4,6 @@ import image from "../Assets/rabbit.png";
 
 export default function Eyeballs() {
 
-
   React.useEffect( () => {
     const mouseMover = (): void => {
       
@@ -12,18 +11,19 @@ export default function Eyeballs() {
         const mouseX : number = e.clientX;
         const mouseY : number = e.clientY;
     
-        const rabbit : Element | null = document.getElementById("rabbit");
-        const rekt : DOMRect | null | undefined = rabbit?.getBoundingClientRect();
+        const rabbit : Element | null | HTMLImageElement = document.getElementById("rabbit") as Element | HTMLImageElement | null;
+        const rekt : DOMRect | any = rabbit?.getBoundingClientRect();
     
-        const anchorX = rekt.left + rekt.width / 2;
-        const anchorY = rekt.right + rekt.height / 2;
+        const anchorX : number = rekt.left + rekt.width / 2;
+        const anchorY : number = rekt.right + rekt.height / 2;
     
         const angleDeg = getAngle(mouseX, mouseY, anchorX, anchorY);
         
-        const eyes = document.querySelectorAll(".eyes");
+        const eyes : NodeList | HTMLDivElement | Array<NodeList> = document.querySelectorAll(".eyes");
+
         eyes.forEach(eye => {
-          eye.style.transform = `rotate(${angleDeg + 90}deg);`;
-          
+          eye.style.transform = `rotate(${angleDeg + 90}deg)`; // did not work becuase of a semicolon
+          rabbit.style.filter = `hue-rotate(${angleDeg}deg)`;
         })
       });
     }
@@ -40,7 +40,7 @@ export default function Eyeballs() {
   }
   return (
     <div className="relative">
-      <div className="absolute   left-20 mt-14">
+      <div className="absolute group  left-20">
         <Image
             src={image}
             alt=""
@@ -49,14 +49,14 @@ export default function Eyeballs() {
             className=""
             id={"rabbit"}
           />
-          <div className="eyes absolute w-[0.6rem] rounded-full h-[0.3rem] bg-black top-[1rem] z-10 left-[3rem]"></div>
-          <div className="eyes absolute w-[0.3rem] rounded-full h-[0.3rem] bg-[black] top-[5rem] left-[4.5rem]"></div>
+          <div className=" eyes absolute w-[0.3rem] rounded-full h-[0.4rem] bg-black top-[1.3rem] z-10 left-[3rem]"></div>
+          <div className="eyes absolute w-[0.3rem] rounded-full h-[0.4rem] bg-[black] top-[1.5rem] z-10 left-[1.5rem] "></div>
     
 
       </div>
       
-      <div className="absolute w-4 rounded-full h-4 bg-[white] top-[4.5rem] left-[6.2rem]"></div>
-      <div className="absolute w-4 rounded-full h-4 bg-white top-[4.5rem] left-[7.7rem]"></div>
+      <div className="absolute w-4  z-[1] rounded-full h-4 bg-[white] top-[1rem] left-[6.2rem]"></div>
+      <div className="absolute w-4 rounded-full h-4 bg-white top-[1rem] left-[7.7rem] z-[1]"></div>
     
     </div>
   )

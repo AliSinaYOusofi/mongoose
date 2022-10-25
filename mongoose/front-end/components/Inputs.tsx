@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Table from './Table';
 import SearchBar from './SearchBar';
+import Eyeballs from './Eyeballs';
 
 const Inputs : NextPage = () => {
     
@@ -138,6 +139,7 @@ const Inputs : NextPage = () => {
                 <button type="submit"  onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: buttonColor ? "blue" : "gray"}} className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300">Asending</button>
                 <button type="submit" className="text-white p-1 px-3 rounded-sm border-none outline-none transition-all duration-300" onClick={() => setButtonColor(prev => !prev)} style={{backgroundColor: !buttonColor ? "blue" : "gray"}}>Descending</button>
             </div>
+            <Eyeballs />
             <Table click={click} color={buttonColor}/>
         </>
   )
