@@ -75,7 +75,7 @@ const Inputs : NextPage<Props> = (props) => {
             try {
                 const response = await axios.post("http://localhost:3001/api/update", {id: props.id, insert: name + " " + lastName + " " + email + " " + phone});
                 response.data.message === "done" ? toast.success("user updated") : toast.error("failed to update, check you email again");
-            }catch(error) { console.log(error)}
+            } catch(error) { console.log(error)}
         }
     }
 
@@ -98,7 +98,7 @@ const Inputs : NextPage<Props> = (props) => {
     
     return (
         <>
-            <div id={`${props.buttonTitle}`} className="w-[80%] rounded-md bg-[#ece4e5] md:mt-5 ml-auto mr-auto py-8 flex  justify-center items-center flex-wrap
+            <div id={`${props.buttonTitle}`} className="w-[80%] rounded-md bg-[#cfc9c9] md:mt-5 ml-auto mr-auto py-8 flex  justify-center items-center flex-wrap
                 gap-x-2  gap-y-3 text-black">
                 
                 <div className="relative">
